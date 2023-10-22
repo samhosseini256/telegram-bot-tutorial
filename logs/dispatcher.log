@@ -1,0 +1,17 @@
+2023-10-22 13:48:04 DEBUG BotConfig:27 - sdfgsdfg
+2023-10-22 13:52:26 DEBUG BotConfig:32 - sdfgs
+2023-10-22 14:33:12 ERROR BotConfig:48 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 14:33:19 ERROR BotConfig:48 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 14:34:41 ERROR BotConfig:48 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 14:35:13 ERROR BotConfig:49 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 14:46:29 ERROR BotConfig:49 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 14:47:46 ERROR BotConfig:49 - Unable to deserialize response
+2023-10-22 14:48:30 ERROR BotConfig:49 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 16:13:42 ERROR BotConfig:57 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 16:30:55 ERROR BotConfig:57 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 17:33:52 ERROR BotConfig:69 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 18:59:52 ERROR BotConfig:77 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 19:00:02 ERROR BotConfig:77 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 19:00:08 ERROR BotConfig:77 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 19:14:50 ERROR BotConfig:78 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 19:16:33 ERROR BotConfig:53 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
