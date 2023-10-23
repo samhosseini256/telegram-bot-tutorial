@@ -1,0 +1,5 @@
+server.port: 8080
+
+bot:
+  token: "6954677787:AAFvNjORwrOZ8ZuuGPvrPatzTb1Q11hMIdU"
+  username: "mohajer13bot"

@@ -15,3 +15,11 @@
 2023-10-22 19:00:08 ERROR BotConfig:77 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
 2023-10-22 19:14:50 ERROR BotConfig:78 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
 2023-10-22 19:16:33 ERROR BotConfig:53 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 20:21:17 ERROR BotConfig:50 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 20:21:17 ERROR BotConfig:50 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 20:21:24 ERROR BotConfig:50 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-22 21:07:26 ERROR BotConfig:50 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-23 08:51:40 ERROR BotConfig:50 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
+2023-10-23 10:09:50 ERROR TelegramBotService:45 - New test for log
+2023-10-23 10:09:55 ERROR TelegramBotService:45 - New test for log
+2023-10-23 10:11:38 ERROR TelegramBotService:45 - New test for log

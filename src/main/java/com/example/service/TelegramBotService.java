@@ -1,7 +1,8 @@
-package com.example;
+package com.example.service;
 
+import com.example.Configs.BotInitialize;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -11,23 +12,19 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Log4j
 @Component
-public class BotConfig extends TelegramLongPollingBot {
+public class TelegramBotService extends TelegramLongPollingBot {
 
-    @Value("${bot.name}")
-    private String botName;
-
-    @Value("${bot.token}")
-    private String botToken;
-
+    @Autowired
+    private BotInitialize botInitialize;
 
     @Override
     public String getBotUsername() {
-        return botName;
+        return botInitialize.getBotUsername();
     }
 
     @Override
     public String getBotToken() {
-        return botToken;
+        return botInitialize.getBotToken();
     }
 
     @Override
