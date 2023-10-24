@@ -23,3 +23,6 @@
 2023-10-23 10:09:50 ERROR TelegramBotService:45 - New test for log
 2023-10-23 10:09:55 ERROR TelegramBotService:45 - New test for log
 2023-10-23 10:11:38 ERROR TelegramBotService:45 - New test for log
+2023-10-23 16:37:53 ERROR TelegramBotService:55 - org.telegram.telegrambots.meta.exceptions.TelegramApiException: Unable to execute sendmessage method
+2023-10-24 16:23:25 ERROR TelegramBotService:81 - Error executing org.telegram.telegrambots.meta.api.methods.send.SendContact query: [400] Bad Request: parameter "phone_number" is required
+2023-10-24 16:25:49 ERROR TelegramBotService:82 - Error executing org.telegram.telegrambots.meta.api.methods.send.SendContact query: [400] Bad Request: parameter "first_name" is required
