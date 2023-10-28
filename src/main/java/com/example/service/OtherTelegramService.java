@@ -1,20 +1,29 @@
 package com.example.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.methods.GetMe;
+import org.telegram.telegrambots.meta.api.methods.commands.GetMyCommands;
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
+import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
+import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Log4j
 @Component
@@ -41,6 +50,11 @@ public class OtherTelegramService extends TelegramLongPollingBot {
         myContact.setUserId(59566445l);
 
         return myContact;
+    }
+
+    @Bean
+    public TelegramBotsApi telegramBotsApi() throws TelegramApiException {
+        return new TelegramBotsApi(DefaultBotSession.class);
     }
 
 
@@ -113,6 +127,50 @@ public class OtherTelegramService extends TelegramLongPollingBot {
 //            System.out.println((update.getMessage() != null)? update.getMessage().getChatId(): "Null" );
         }
 
+    }
+
+
+
+    @SneakyThrows
+    public void sendMessage (AbsSender absSender, String chatId){
+
+        Message message = new Message();
+//        message.sett
+
+
+        SendMessage answer = new SendMessage();
+        answer.setChatId(chatId);
+        answer.setText("Test");
+
+        absSender.execute(answer);
+
+    }
+
+    @SneakyThrows
+    public User getMe2() {
+        return execute(new GetMe());
+    }
+
+    @SneakyThrows
+    public ArrayList<BotCommand> getMyCommands (){
+        return execute(new GetMyCommands());
+    }
+
+    @SneakyThrows
+    public void setCommand (){
+
+        BotCommand resume2 = new BotCommand("resume2", "Resume2");
+        BotCommand resume3 = new BotCommand("resume3", "Resume3");
+
+        List<BotCommand> botCommands = Arrays.asList(resume2,resume3);
+
+
+        SetMyCommands setMyCommands = new SetMyCommands();
+
+        setMyCommands.setCommands(botCommands);
+
+
+        execute(setMyCommands);
     }
 
 

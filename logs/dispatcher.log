@@ -26,3 +26,6 @@
 2023-10-23 16:37:53 ERROR TelegramBotService:55 - org.telegram.telegrambots.meta.exceptions.TelegramApiException: Unable to execute sendmessage method
 2023-10-24 16:23:25 ERROR TelegramBotService:81 - Error executing org.telegram.telegrambots.meta.api.methods.send.SendContact query: [400] Bad Request: parameter "phone_number" is required
 2023-10-24 16:25:49 ERROR TelegramBotService:82 - Error executing org.telegram.telegrambots.meta.api.methods.send.SendContact query: [400] Bad Request: parameter "first_name" is required
+2023-10-28 22:00:25 ERROR TelegramBotService:68 - Error occurred: Bot token and username can't be empty
+2023-10-28 22:02:00 ERROR TelegramBotService:68 - Error occurred: Bot token and username can't be empty
+2023-10-28 22:06:43 ERROR TelegramBotService:68 - Error occurred: Bot token and username can't be empty
