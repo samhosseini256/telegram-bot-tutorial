@@ -1,24 +1,29 @@
 package com.example.service;
 
+import com.example.service.manageCommonds.ResumeCommand;
+import jakarta.annotation.PostConstruct;
 import lombok.*;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.extensions.bots.commandbot.CommandBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.GetMe;
+import org.telegram.telegrambots.meta.api.methods.commands.DeleteMyCommands;
 import org.telegram.telegrambots.meta.api.methods.commands.GetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMemberCount;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Contact;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
+import org.telegram.telegrambots.meta.api.objects.*;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.TelegramBot;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.util.ArrayList;
@@ -40,7 +45,7 @@ public class OtherTelegramService extends TelegramLongPollingBot {
     private String botToken;
 
     @Bean
-    public Contact myAcontAsContact(){
+    public Contact myAcontAsContact() {
 
         Contact myContact = new Contact();
         myContact.setFirstName("Aziz");
@@ -68,8 +73,14 @@ public class OtherTelegramService extends TelegramLongPollingBot {
         return botUsername;
     }
 
+
+
     @Override
     public void onUpdateReceived(Update update) {
+
+//        User user = new User();
+//        user.
+
     }
 
     public void sendTextMessage(String text, long chatId) {
@@ -88,7 +99,8 @@ public class OtherTelegramService extends TelegramLongPollingBot {
             }
         }
     }
-    public void sendContactMessage(Contact contact, long chatId){
+
+    public void sendContactMessage(Contact contact, long chatId) {
 
         SendContact sendContact = new SendContact();
         sendContact.setFirstName(contact.getFirstName());
@@ -96,18 +108,18 @@ public class OtherTelegramService extends TelegramLongPollingBot {
         sendContact.setPhoneNumber(contact.getPhoneNumber());
         sendContact.setChatId(chatId);
 
-        if (sendContact != null){
+        if (sendContact != null) {
             try {
                 execute(sendContact);
-            } catch (TelegramApiException e){
+            } catch (TelegramApiException e) {
                 log.error(e);
             }
         }
     }
 
-    public void difetentMessages(Update update){
+    public void difetentMessages(Update update) {
 
-        if (update.hasMessage()){
+        if (update.hasMessage()) {
             sendTextMessage(update.getMessage().getText(), update.getMessage().getChatId());
             System.out.println("GetMessageChatId: " + update.getMessage().getChatId());
         }
@@ -115,12 +127,11 @@ public class OtherTelegramService extends TelegramLongPollingBot {
 //        update.get
 
 
-
-        if (update.hasEditedMessage()){
-            sendTextMessage(update.getEditedMessage().getText(),update.getEditedMessage().getChatId());
+        if (update.hasEditedMessage()) {
+            sendTextMessage(update.getEditedMessage().getText(), update.getEditedMessage().getChatId());
             System.out.println("GetEdidetMessageChatId: " + update.getEditedMessage().getChatId());
 
-            if (update.getMessage() != null){
+            if (update.getMessage() != null) {
                 System.out.println("GetMessageChatId: " + update.getMessage().getChatId());
             }
 
@@ -130,9 +141,8 @@ public class OtherTelegramService extends TelegramLongPollingBot {
     }
 
 
-
-    @SneakyThrows
-    public void sendMessage (AbsSender absSender, String chatId){
+    @SneakyThrows(value = {TelegramApiException.class})
+    public void sendMessage(AbsSender absSender, String chatId) {
 
         Message message = new Message();
 //        message.sett
@@ -146,32 +156,63 @@ public class OtherTelegramService extends TelegramLongPollingBot {
 
     }
 
-    @SneakyThrows
+    @SneakyThrows(value = {TelegramApiException.class})
     public User getMe2() {
         return execute(new GetMe());
     }
 
-    @SneakyThrows
-    public ArrayList<BotCommand> getMyCommands (){
+    @SneakyThrows(value = {TelegramApiException.class})
+    public ArrayList<BotCommand> getMyCommands() {
         return execute(new GetMyCommands());
     }
 
-    @SneakyThrows
-    public void setCommand (){
+    @SneakyThrows(value = {TelegramApiException.class})
+    public void setMyCommand(BotCommand botCommand) {
 
-        BotCommand resume2 = new BotCommand("resume2", "Resume2");
-        BotCommand resume3 = new BotCommand("resume3", "Resume3");
-
-        List<BotCommand> botCommands = Arrays.asList(resume2,resume3);
-
+        List<BotCommand> botCommands = getMyCommands();
+        botCommands.add(botCommand);
 
         SetMyCommands setMyCommands = new SetMyCommands();
-
         setMyCommands.setCommands(botCommands);
-
 
         execute(setMyCommands);
     }
+
+
+    @SneakyThrows(value = {TelegramApiException.class})
+    public void deleteMyCommands() {
+        DeleteMyCommands deleteMyCommands = new DeleteMyCommands();
+        execute(deleteMyCommands);
+    }
+
+    public void addHelpCommand(){
+        String messageText = "The BultIn bot supports the following commands: \ncommands : description\n";
+
+        for (BotCommand botCommand: getMyCommands()){
+            messageText.contains(botCommand.getCommand() + " : "+botCommand.getDescription());
+        }
+
+        BotCommand helpCommand = new BotCommand("help", "Help Command");
+
+
+
+
+        setMyCommand(helpCommand);
+
+    }
+
+
+    public void addCommand() {
+
+
+    }
+
+////    @PostConstruct
+//    @SneakyThrows
+//    public List<User> allUsersStartRobot(){
+//
+//        return null;
+//    }
 
 
 

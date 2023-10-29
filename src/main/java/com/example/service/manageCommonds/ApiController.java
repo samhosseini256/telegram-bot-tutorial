@@ -10,16 +10,14 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import java.util.ArrayList;
 
 @RestController
-public class CommondsController {
+public class ApiController {
 
     @Autowired
     private OtherTelegramService otherTelegramService;
 
     @RequestMapping("/getMe")
     public User getMe() {
-
         return otherTelegramService.getMe2();
-
     }
 
     @RequestMapping("/get-my-commands")
@@ -27,9 +25,20 @@ public class CommondsController {
         return otherTelegramService.getMyCommands();
     }
 
-    @RequestMapping("/set-command")
-    public void setCommands(){
-        otherTelegramService.setCommand();
+
+    @RequestMapping("/delete-my-commands")
+    public void deleteMyCommand(){
+        otherTelegramService.deleteMyCommands();
+    }
+
+    @RequestMapping("/add-help-command")
+    public void addHelpCommand(){
+        otherTelegramService.addHelpCommand();
+    }
+
+    @RequestMapping("/add-command")
+    public void addCommand(){
+        otherTelegramService.addCommand();
     }
 
 
