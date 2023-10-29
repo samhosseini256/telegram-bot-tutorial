@@ -72,7 +72,6 @@ public class OtherTelegramService extends TelegramLongPollingBot {
     }
 
 
-
     @Override
     public void onUpdateReceived(Update update) {
 
@@ -121,6 +120,24 @@ public class OtherTelegramService extends TelegramLongPollingBot {
         return userDomain;
     }
 
+    public User userDomainToUser(UserDomain userDomain){
+        User user = new User();
+
+        user.setId(userDomain.getUserId());
+        user.setUserName(userDomain.getUserName());
+        user.setFirstName(userDomain.getFirstName());
+        user.setLastName(userDomain.getLastName());
+        user.setIsBot(userDomain.getIsBot());
+        user.setLanguageCode(userDomain.getLanguageCode());
+        user.setCanJoinGroups(userDomain.getCanJoinGroups());
+        user.setCanReadAllGroupMessages(userDomain.getCanReadAllGroupMessages());
+        user.setSupportInlineQueries(userDomain.getSupportInlineQueries());
+        user.setIsPremium(userDomain.getIsPremium());
+        user.setAddedToAttachmentMenu(userDomain.getAddedToAttachmentMenu());
+
+        return user;
+    }
+
     public void sendTextMessage(String text, long chatId) {
 
         SendMessage sendMessage = new SendMessage();
@@ -162,7 +179,6 @@ public class OtherTelegramService extends TelegramLongPollingBot {
             System.out.println("GetMessageChatId: " + update.getMessage().getChatId());
         }
 
-//        update.get
 
 
         if (update.hasEditedMessage()) {
@@ -173,18 +189,15 @@ public class OtherTelegramService extends TelegramLongPollingBot {
                 System.out.println("GetMessageChatId: " + update.getMessage().getChatId());
             }
 
-//            System.out.println((update.getMessage() != null)? update.getMessage().getChatId(): "Null" );
         }
 
     }
 
 
-    @SneakyThrows(value = {TelegramApiException.class})
+    @SneakyThrows
     public void sendMessage(AbsSender absSender, String chatId) {
 
         Message message = new Message();
-//        message.sett
-
 
         SendMessage answer = new SendMessage();
         answer.setChatId(chatId);
@@ -194,17 +207,17 @@ public class OtherTelegramService extends TelegramLongPollingBot {
 
     }
 
-    @SneakyThrows(value = {TelegramApiException.class})
+    @SneakyThrows
     public User getMe2() {
         return execute(new GetMe());
     }
 
-    @SneakyThrows(value = {TelegramApiException.class})
+    @SneakyThrows
     public ArrayList<BotCommand> getMyCommands() {
         return execute(new GetMyCommands());
     }
 
-    @SneakyThrows(value = {TelegramApiException.class})
+    @SneakyThrows
     public void setMyCommand(BotCommand botCommand) {
 
         List<BotCommand> botCommands = getMyCommands();
@@ -217,7 +230,7 @@ public class OtherTelegramService extends TelegramLongPollingBot {
     }
 
 
-    @SneakyThrows(value = {TelegramApiException.class})
+    @SneakyThrows
     public void deleteMyCommands() {
         DeleteMyCommands deleteMyCommands = new DeleteMyCommands();
         execute(deleteMyCommands);

@@ -49,10 +49,11 @@ public class TelegramBotService extends TelegramLongPollingBot {
     @SneakyThrows
     public void onUpdateReceived(Update update) {
 
+        otherTelegramService.saveNewUserFromUpdate(update);
+
         //Echo
         otherTelegramService.sendTextMessage(update.getMessage().getText(), update.getMessage().getChatId());
 
-        otherTelegramService.saveNewUserFromUpdate(update);
 
     }
 
