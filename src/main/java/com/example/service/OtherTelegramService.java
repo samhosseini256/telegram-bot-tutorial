@@ -1,33 +1,28 @@
 package com.example.service;
 
-import com.example.service.manageCommonds.ResumeCommand;
-import jakarta.annotation.PostConstruct;
+import com.example.dao.UserDomain;
+import com.example.dao.UserRepository;
 import lombok.*;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.extensions.bots.commandbot.CommandBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.GetMe;
 import org.telegram.telegrambots.meta.api.methods.commands.DeleteMyCommands;
 import org.telegram.telegrambots.meta.api.methods.commands.GetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
-import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMemberCount;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.*;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.generics.TelegramBot;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Log4j
@@ -43,6 +38,9 @@ public class OtherTelegramService extends TelegramLongPollingBot {
 
     @Value("${bot.token}")
     private String botToken;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Bean
     public Contact myAcontAsContact() {
@@ -78,9 +76,49 @@ public class OtherTelegramService extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-//        User user = new User();
-//        user.
+    }
 
+
+
+    public void saveNewUserFromUpdate(Update update){
+
+        User user = update.getMessage().getFrom();
+        UserDomain userDomain = userToUserDomain(user);
+
+        List<UserDomain> allusers = getAllUsers();
+
+        boolean exist = false;
+
+        for (UserDomain domain: getAllUsers()){
+            if (domain.getUserId() == user.getId()){
+                exist = true;
+            }
+        }
+         if(!exist) userRepository.save(userDomain);
+
+    }
+
+    public List<UserDomain> getAllUsers(){
+        return userRepository.findAll();
+    }
+
+    public UserDomain userToUserDomain(User user){
+
+        UserDomain userDomain = new UserDomain();
+
+        userDomain.setUserId(user.getId());
+        userDomain.setUserName(user.getUserName());
+        userDomain.setFirstName(user.getFirstName());
+        userDomain.setLastName(user.getLastName());
+        userDomain.setIsBot(user.getIsBot());
+        userDomain.setLanguageCode(user.getLanguageCode());
+        userDomain.setCanJoinGroups(user.getCanJoinGroups());
+        userDomain.setCanReadAllGroupMessages(user.getCanReadAllGroupMessages());
+        userDomain.setSupportInlineQueries(user.getSupportInlineQueries());
+        userDomain.setIsPremium(user.getIsPremium());
+        userDomain.setAddedToAttachmentMenu(user.getAddedToAttachmentMenu());
+
+        return userDomain;
     }
 
     public void sendTextMessage(String text, long chatId) {

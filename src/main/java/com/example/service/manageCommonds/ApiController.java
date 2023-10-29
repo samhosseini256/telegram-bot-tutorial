@@ -1,5 +1,6 @@
 package com.example.service.manageCommonds;
 
+import com.example.dao.UserDomain;
 import com.example.service.OtherTelegramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ApiController {
@@ -39,6 +41,11 @@ public class ApiController {
     @RequestMapping("/add-command")
     public void addCommand(){
         otherTelegramService.addCommand();
+    }
+
+    @RequestMapping("/get-all-users")
+    public List<UserDomain> getAllUsers(){
+        return otherTelegramService.getAllUsers();
     }
 
 

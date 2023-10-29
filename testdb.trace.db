@@ -1,0 +1,13 @@
+2023-10-30 01:02:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "\000d\000a    alter table if exists user_domain \000d\000a       add column [*]user varbinary(255)"; expected "identifier"; SQL statement:
+
+    alter table if exists user_domain 
+       add column user varbinary(255) [42001-214]
+2023-10-30 01:02:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "\000d\000a    create table user_domain (\000d\000a        id bigint not null,\000d\000a        [*]user varbinary(255),\000d\000a        primary key (id)\000d\000a    )"; expected "identifier"; SQL statement:
+
+    create table user_domain (
+        id bigint not null,
+        user varbinary(255),
+        primary key (id)
+    ) [42001-214]
