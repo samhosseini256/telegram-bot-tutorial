@@ -3,6 +3,7 @@ package com.example.service.manageCommonds;
 import com.example.dao.UserDomain;
 import com.example.service.OtherTelegramService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -46,6 +47,11 @@ public class ApiController {
     @RequestMapping("/get-all-users")
     public List<UserDomain> getAllUsers(){
         return otherTelegramService.getAllUsers();
+    }
+
+    @RequestMapping("/send-message-to-all-users")
+    public void sendMessageToAllUsers(@RequestBody String message){
+        otherTelegramService.sendMessageToAllUsers(message);
     }
 
 

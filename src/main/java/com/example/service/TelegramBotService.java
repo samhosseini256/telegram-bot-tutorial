@@ -52,7 +52,7 @@ public class TelegramBotService extends TelegramLongPollingBot {
         otherTelegramService.saveNewUserFromUpdate(update);
 
         //Echo
-        otherTelegramService.sendTextMessage(update.getMessage().getText(), update.getMessage().getChatId());
+//        otherTelegramService.sendTextMessage(update.getMessage().getText(), update.getMessage().getChatId());
 
 
     }

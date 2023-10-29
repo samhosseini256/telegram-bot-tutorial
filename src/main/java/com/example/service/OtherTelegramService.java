@@ -252,18 +252,23 @@ public class OtherTelegramService extends TelegramLongPollingBot {
 
     }
 
+    @SneakyThrows
+    public void sendMessageToAllUsers(String message){
 
-    public void addCommand() {
 
+        for (UserDomain userDomain: getAllUsers()){
+            sendTextMessage(message, userDomain.getUserId());
+        }
 
     }
 
-////    @PostConstruct
-//    @SneakyThrows
-//    public List<User> allUsersStartRobot(){
-//
-//        return null;
-//    }
+    public void addCommand() {
+
+        for (UserDomain userDomain: getAllUsers()){
+            sendTextMessage("SALAM", userDomain.getUserId());
+        }
+
+    }
 
 
 
