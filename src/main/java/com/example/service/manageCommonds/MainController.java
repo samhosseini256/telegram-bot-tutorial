@@ -1,58 +1,52 @@
 package com.example.service.manageCommonds;
 
 import com.example.dao.UserDomain;
-import com.example.service.OtherTelegramService;
+import com.example.service.TelegramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class ApiController {
+public class MainController {
 
     @Autowired
-    private OtherTelegramService otherTelegramService;
+    private TelegramService telegramService;
 
     @RequestMapping("/getMe")
     public User getMe() {
-        return otherTelegramService.getMe2();
+        return telegramService.getMe2();
     }
 
     @RequestMapping("/get-my-commands")
     public ArrayList<BotCommand> getMyCommands() {
-        return otherTelegramService.getMyCommands();
+        return telegramService.getMyCommands();
     }
 
 
     @RequestMapping("/delete-my-commands")
     public void deleteMyCommand(){
-        otherTelegramService.deleteMyCommands();
+        telegramService.deleteMyCommands();
     }
 
-    @RequestMapping("/add-help-command")
-    public void addHelpCommand(){
-        otherTelegramService.addHelpCommand();
-    }
 
-    @RequestMapping("/add-command")
-    public void addCommand(){
-        otherTelegramService.addCommand();
+    @RequestMapping("/send-message-to-all-users")
+    public void addCommand(@RequestBody String message){
+        telegramService.sendMessageToAllUsers(message);
     }
 
     @RequestMapping("/get-all-users")
     public List<UserDomain> getAllUsers(){
-        return otherTelegramService.getAllUsers();
+        return telegramService.getAllUsers();
     }
 
-    @RequestMapping("/send-message-to-all-users")
-    public void sendMessageToAllUsers(@RequestBody String message){
-        otherTelegramService.sendMessageToAllUsers(message);
+    @RequestMapping("/first-test-methode")
+    public void sendMessageToAllUsers(){
+        telegramService.firstTestMethod();
     }
-
 
 }

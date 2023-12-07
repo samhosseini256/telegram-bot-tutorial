@@ -1,6 +1,5 @@
 package com.example.service;
 
-import com.example.service.manageCommonds.ResumeCommand;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,10 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Log4j
 @Component
-public class TelegramBotService extends TelegramLongPollingBot {
+public class TelegramBotInitialize extends TelegramLongPollingBot {
 
     @Autowired
-    private OtherTelegramService otherTelegramService;
-
-    @Autowired
-    private ResumeCommand resumeCommand;
+    private TelegramService telegramService;
 
     @Autowired
     private Contact myAcontAsContact;
@@ -44,20 +40,18 @@ public class TelegramBotService extends TelegramLongPollingBot {
         return botUsername;
     }
 
-
     @Override
     @SneakyThrows
     public void onUpdateReceived(Update update) {
 
-        otherTelegramService.saveNewUserFromUpdate(update);
+//        otherTelegramService.saveNewUserFromUpdate(update);
 
         //Echo
-//        otherTelegramService.sendTextMessage(update.getMessage().getText(), update.getMessage().getChatId());
-
+        telegramService.sendTextMessage(update.getMessage().getText(), update.getMessage().getChatId());
+        System.out.println("user id: "+update.getMessage().getFrom().getId());
+        System.out.println("chat id: "+update.getMessage().getChatId());
 
     }
-
-
 
     @EventListener({ContextRefreshedEvent.class})
     public void init() throws TelegramApiException {

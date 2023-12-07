@@ -1,10 +1,7 @@
 package com.example.dao;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
-import org.telegram.telegrambots.meta.api.objects.User;
-
 import java.io.Serial;
 import java.io.Serializable;
 

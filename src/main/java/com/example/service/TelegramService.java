@@ -14,11 +14,14 @@ import org.telegram.telegrambots.meta.api.methods.GetMe;
 import org.telegram.telegrambots.meta.api.methods.commands.DeleteMyCommands;
 import org.telegram.telegrambots.meta.api.methods.commands.GetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatAdministrators;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.PromoteChatMember;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.SetChatAdministratorCustomTitle;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.*;
+import org.telegram.telegrambots.meta.api.objects.chatmember.ChatMember;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
-import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
@@ -31,7 +34,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OtherTelegramService extends TelegramLongPollingBot {
+public class TelegramService extends TelegramLongPollingBot {
 
     @Value("${bot.username}")
     private String botUsername;
@@ -77,8 +80,7 @@ public class OtherTelegramService extends TelegramLongPollingBot {
 
     }
 
-
-
+    /***/
     public void saveNewUserFromUpdate(Update update){
 
         User user = update.getMessage().getFrom();
@@ -96,11 +98,11 @@ public class OtherTelegramService extends TelegramLongPollingBot {
          if(!exist) userRepository.save(userDomain);
 
     }
-
+    /***/
     public List<UserDomain> getAllUsers(){
         return userRepository.findAll();
     }
-
+    /***/
     public UserDomain userToUserDomain(User user){
 
         UserDomain userDomain = new UserDomain();
@@ -138,6 +140,7 @@ public class OtherTelegramService extends TelegramLongPollingBot {
         return user;
     }
 
+    /***/
     public void sendTextMessage(String text, long chatId) {
 
         SendMessage sendMessage = new SendMessage();
@@ -155,6 +158,7 @@ public class OtherTelegramService extends TelegramLongPollingBot {
         }
     }
 
+    /***/
     public void sendContactMessage(Contact contact, long chatId) {
 
         SendContact sendContact = new SendContact();
@@ -172,6 +176,7 @@ public class OtherTelegramService extends TelegramLongPollingBot {
         }
     }
 
+    /***/
     public void difetentMessages(Update update) {
 
         if (update.hasMessage()) {
@@ -193,30 +198,19 @@ public class OtherTelegramService extends TelegramLongPollingBot {
 
     }
 
-
-    @SneakyThrows
-    public void sendMessage(AbsSender absSender, String chatId) {
-
-        Message message = new Message();
-
-        SendMessage answer = new SendMessage();
-        answer.setChatId(chatId);
-        answer.setText("Test");
-
-        absSender.execute(answer);
-
-    }
-
+    /***/
     @SneakyThrows
     public User getMe2() {
         return execute(new GetMe());
     }
 
+    /***/
     @SneakyThrows
     public ArrayList<BotCommand> getMyCommands() {
         return execute(new GetMyCommands());
     }
 
+    /***/
     @SneakyThrows
     public void setMyCommand(BotCommand botCommand) {
 
@@ -230,46 +224,74 @@ public class OtherTelegramService extends TelegramLongPollingBot {
     }
 
 
+    /***/
     @SneakyThrows
     public void deleteMyCommands() {
         DeleteMyCommands deleteMyCommands = new DeleteMyCommands();
         execute(deleteMyCommands);
     }
 
-    public void addHelpCommand(){
-        String messageText = "The BultIn bot supports the following commands: \ncommands : description\n";
-
-        for (BotCommand botCommand: getMyCommands()){
-            messageText.contains(botCommand.getCommand() + " : "+botCommand.getDescription());
-        }
-
-        BotCommand helpCommand = new BotCommand("help", "Help Command");
-
-
-
-
-        setMyCommand(helpCommand);
-
-    }
-
+    /***/
     @SneakyThrows
     public void sendMessageToAllUsers(String message){
-
-
         for (UserDomain userDomain: getAllUsers()){
             sendTextMessage(message, userDomain.getUserId());
         }
-
     }
 
-    public void addCommand() {
+    @SneakyThrows
+    public void firstTestMethod(){
 
-        for (UserDomain userDomain: getAllUsers()){
-            sendTextMessage("SALAM", userDomain.getUserId());
+//        PromoteChatMember promoteChatMember = new PromoteChatMember();
+//        promoteChatMember.setChatId(-1001565935351L);
+//        promoteChatMember.setUserId(850553973L);
+//
+//        promoteChatMember.setCanPostMessages(false);
+////        promoteChatMember.set
+//
+//        execute(promoteChatMember);
+
+
+        ////////////////
+
+//        SetChatAdministratorCustomTitle setChatAdministratorCustomTitle = new SetChatAdministratorCustomTitle();
+//        setChatAdministratorCustomTitle.setChatId(-1001565935351L);
+//        setChatAdministratorCustomTitle.setUserId(59566445L);
+//
+//        setChatAdministratorCustomTitle.setCustomTitle("HAPALI");
+//
+//        execute(setChatAdministratorCustomTitle);
+
+        GetChatAdministrators getChatAdministrators= new GetChatAdministrators("-1001565935351");
+
+        var x = execute(getChatAdministrators);
+
+
+        for (ChatMember chatMember: x){
+            System.out.println(chatMember.getStatus());
         }
 
     }
 
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
